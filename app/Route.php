@@ -36,7 +36,7 @@ class Route
         $path = preg_replace_callback('#:([\w]+)#', [$this, 'paramMatch'], $this->path);
         $regex = "#^$path$#i";
 
-        if(!preg_match($matches))
+        if(!preg_match($regex, $url, $matches))
         {
             return false;
         }
@@ -59,7 +59,7 @@ class Route
 
     public function call()
     {
-        if(count($this->middleware))
+        if(count($this->middlewares))
         {
             foreach ($this->middlewares as $middleware)
             {

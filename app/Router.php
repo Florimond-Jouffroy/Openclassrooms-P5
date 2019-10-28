@@ -10,7 +10,7 @@ class Router
     private $routes = [];
 
 
-    public function __construct()
+    public function __construct($action)
     {
         $this->action = $action;
     }
@@ -46,7 +46,7 @@ class Router
                 return $route->call();
             }
         }
-        
+
         echo '404';
         exit;
     }
