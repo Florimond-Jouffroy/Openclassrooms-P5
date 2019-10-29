@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+
+
+
+<div id="page-login">
+
+    <form action="{{ url('login') }}" method="post" id="form-login">
+
+
+
+        <div class="champ">
+            <input type="text" name="login" id="login" placeholder="Login">
+        </div>
+        <div class="champ">
+            <input type="password" name="password" id="password" placeholder="Passsword">
+        </div>
+        <div class="champ">
+            <input type="submit" value="Connexion" class="btn-valider">
+        </div>
+
+
+    </form>
+
+    <div id="inscription">
+        <p>Vous n'avez pas de compte ?<br> Vous pouvez vous inscrire <a href="{{ url('inscription') }}">ici</a>!</p>
+    </div>
+
+</div>
+
+
+
+
+
+{% endblock %}

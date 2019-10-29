@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+
+
+<div id="page-registration">
+
+    <div class="my-4">
+        <h2>Inscription</h2>
+    </div>
+
+    <form action="{{ url('inscription') }}" method="POST">
+
+        <div class="form-row form-group">
+            <div class="col">
+                <label for="firstname">Prénom</label>
+                <input type="text" name="firstname" id="firstname" placeholder="Prénom" class="form-control">
+            </div>
+            <div class="col">
+                <label for="lastname">Nom</label>
+                <input type="text" name="lastname" id="lastname" placeholder="Nom de famille" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="e-mail" class="form-control">
+        </div>
+        <div class="form-row form-group">
+
+
+            <div class="col">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="password" class="form-control">
+            </div>
+
+            <div class="col">
+                <label for="passwordv">Vérification password</label>
+                <input type="password" name="passwordv" id="password-v" placeholder="password" class="form-control">
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary">Inscription</button>
+
+    </form>
+
+
+</div>
+
+
+
+
+
+
+{% endblock %}
