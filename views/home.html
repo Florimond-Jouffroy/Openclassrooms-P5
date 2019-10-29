@@ -2,6 +2,16 @@
 
 {% block content %}
 
-    test
+    {% for post in posts %}
+
+    <article class="card Regular shadow p-4 mt-4">
+        <div class="card-body">
+            <a href="post/{{post.id}}" class="card-title h3 text-decoration-none">{{ post.title }}</a>
+            <p class="card-text">{{ post.chapo }}</p>
+            <a href="post/{{post.id}}" class="btn btn-primary">Lire la suite</a>
+        </div>
+    </article>
+
+    {% endfor %}    
 
 {% endblock %}
