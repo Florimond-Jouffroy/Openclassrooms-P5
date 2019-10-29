@@ -26,7 +26,7 @@ class AuthController extends Controller
     /**
      * Permet de déconnecter l'utilisateur
      */
-    public function deconexion()
+    public function deconnexion()
     {
 
         if(isset($_SESSION['login'])){

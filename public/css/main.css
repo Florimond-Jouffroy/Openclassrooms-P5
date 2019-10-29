@@ -7,3 +7,15 @@
 p{
   font-size: 19px;
 }
+
+#navAdmin{
+  box-sizing: border-box;
+}
+
+*, ::after, ::before{
+  box-sizing: border-box !important;
+}
+
+.activAdmin{
+  background: #1d2124!important;
+}

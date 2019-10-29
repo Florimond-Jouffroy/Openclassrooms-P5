@@ -43,17 +43,27 @@
                 </ul>
 
                 <ul class="navbar-nav">
+
+                        {% if isAdmin() %}
+                        <li class="nav-item"><a class="nav-link" href="{{ url('admin') }}">Administration</a></li>
+                    {% endif %}
                     {% if auth()  %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('deconexion') }}">Déconexion</a>
-                    </li>
+
+                        
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('deconexion') }}">Déconexion</a>
+                        </li>
+
                     {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('login') }}">Connexion</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('inscription') }}">Inscription</a>
-                    </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('login') }}">Connexion</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('inscription') }}">Inscription</a>
+                        </li>
+
                     {% endif %}
                 </ul>
 
@@ -64,6 +74,9 @@
     </nav>
 
     <main role="main" class="container">
+
+        {{ flash() }}
+
         {% block content %}
 
 

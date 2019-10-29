@@ -37,7 +37,7 @@ Abstract class Controller
         $flash = new \Twig_SimpleFunction('flash', function(){
 
             if(isset($_SESSION['flash'])){
-                echo '<div class="flash flash-'. $_SESSION['flash_type'] .'">'. $_SESSION['flash'] . '</div>';
+                echo '<div class="my-4 alert alert-'. $_SESSION['flash_type'] .'">'. $_SESSION['flash'] . '</div>';
                 unset($_SESSION['flash']);
             }
 
@@ -57,10 +57,30 @@ Abstract class Controller
 
         });
 
+        $isAdmin = new \Twig_SimpleFunction('isAdmin', function(){
+
+            if(isset($_SESSION['user_type']))
+            {
+                if($_SESSION['user_type'] == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+        });
+
         $this->twig->addFunction($auth);
         $this->twig->addFunction($flash);
         $this->twig->addFunction($url);
-        
+        $this->twig->addFunction($isAdmin);
     }
     
 
