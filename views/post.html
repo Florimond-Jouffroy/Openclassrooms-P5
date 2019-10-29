@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+
+
+
+
+<div class="my-4">
+
+
+    <h1>{{ post.title }}</h1>
+
+
+    <div class="mt-5">
+
+        <p>{{ post.content }}</p>
+
+    </div>
+
+    <div class="comment py-4">
+        {% if comments %}
+        {% for comment in comments %}
+
+        <article class="card p-2">
+            <div class="row">
+
+                <p class="col col-lg-10 m-0">{{ comment.content }}</p>
+
+
+                <p class="col col-lg-2 text-muted m-0">{{ comment.date_creation }}</p>
+
+            </div>
+
+        </article>
+
+
+        {% endfor %}
+
+        {% else %}
+
+        <article class="card p-2">
+            <p class="m-0">Aucun commentaire</p>
+        </article>
+
+        {% endif %}
+    </div>
+
+
+
+
+    {% endblock %}
