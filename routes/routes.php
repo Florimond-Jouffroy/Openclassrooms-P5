@@ -6,6 +6,8 @@ $router->get('home', ['controller'=>'HomeController', 'action'=>'home']);
 
 //Post
 $router->get('post/:postId',['controller'=>'PostController','action'=>'show'])->withParam('postId', '[0-9]+');
+//Post + comment
+$router->post('addComment',['controller'=>'CommentController', 'action'=>'store']);
 
 //Inscription
 $router->get('inscription', ['controller'=>'UserController', 'action'=>'create']);

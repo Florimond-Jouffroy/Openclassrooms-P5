@@ -59,7 +59,7 @@ class AuthController extends Controller
         if($user == false)
         {
             $_SESSION['flash'] = 'Votre login n\'est pas bon !';
-            $_SESSION['flash_type'] = 'error';
+            $_SESSION['flash_type'] = 'danger';
             header('location: '.$this->url('login'));
         }
         
@@ -80,7 +80,7 @@ class AuthController extends Controller
         else
         {
             $_SESSION['flash'] = 'Votre mot de passe n\'est pas correct';
-            $_SESSION['flash_type'] = 'error';
+            $_SESSION['flash_type'] = 'danger';
             header('location: '.$this->url('login'));
             exit;
         }

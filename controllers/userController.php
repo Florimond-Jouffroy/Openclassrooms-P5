@@ -36,14 +36,14 @@ class UserController extends Controller implements iCRUD
         if($firstname == ''|| $lastname == '' || $email == '' || $password == '')
         {
             $_SESSION['flash'] = 'Vous n\'avez pas bien remplie le formulaire !';
-            $_SESSION['flash_type'] = 'error';
+            $_SESSION['flash_type'] = 'danger';
             return header('location: '.$this->url('inscription'));
             exit;
         }
         elseif($this->userManager->getUserByLogin($email) != false)
         {
             $_SESSION['flash'] = 'Cette email est déjà utiliser !';
-            $_SESSION['flash_type'] = 'error';
+            $_SESSION['flash_type'] = 'danger';
             return header('location: '.$this->url('inscription'));
             exit;
         }

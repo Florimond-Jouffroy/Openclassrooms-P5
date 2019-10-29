@@ -6,6 +6,7 @@ use Managers\PostManager;
 
 class HomeController extends Controller 
 {
+    
 
     public function home()
     {

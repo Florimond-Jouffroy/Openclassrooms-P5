@@ -22,13 +22,13 @@
         {% if comments %}
         {% for comment in comments %}
 
-        <article class="card p-2">
+        <article class="card p-2 mb-2">
             <div class="row">
 
-                <p class="col col-lg-10 m-0">{{ comment.content }}</p>
+                <p class="col col-lg-10 m-0">{{ comment.content|e }}</p>
 
 
-                <p class="col col-lg-2 text-muted m-0">{{ comment.date_creation }}</p>
+                <p class="col col-lg-2 text-muted m-0">{{ comment.date_creation|e }}</p>
 
             </div>
 
@@ -42,6 +42,25 @@
         <article class="card p-2">
             <p class="m-0">Aucun commentaire</p>
         </article>
+
+        {% endif %}
+
+        {% if auth() %}
+        <form action="{{ url('addComment') }}" method="post" class="mt-5">
+
+            <div class="form-group">
+                <label for="comment">Votre commentaire</label>
+                <textarea name="comment" id="comment" rows="3" class="form-control "></textarea>
+            </div>
+            <input type="text" name="postId" value="{{post.id}}" hidden>
+
+
+            <button type="submit" class="btn btn-primary">Poster</button>
+
+        </form>
+        {% else %}
+
+        <p>Connectez-vous pour pouvoir poster un commentaire.</p>
 
         {% endif %}
     </div>
