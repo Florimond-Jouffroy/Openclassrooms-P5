@@ -21,10 +21,9 @@
         <div class="bg-light border-right bg-dark text-light" id="sidebar-wrapper">
             <div class="sidebar-heading">Administration </div>
             <div class="list-group list-group-flush ">
-                <a href="#" class="list-group-item list-group-item-action text-light bg-dark activAdmin">Dashboard</a>
-                <a href="#" class="list-group-item list-group-item-action text-light bg-dark">Gestion Articles</a>
-                <a href="#" class="list-group-item list-group-item-action text-light bg-dark">Gestion Comments</a>
-                <a href="#" class="list-group-item list-group-item-action text-light bg-dark">Gestion Users</a>
+                {% block nav %}
+                
+                {% endblock %}
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -65,8 +64,14 @@
                 </div>
             </nav>
 
-            <div class="container-fluid">
+            <div class="container-fluid p-3">
+
+                {{ flash() }}
                 
+                {% block content %}
+
+
+                {% endblock %}
             </div>
         </div>
         <!-- /#page-content-wrapper -->

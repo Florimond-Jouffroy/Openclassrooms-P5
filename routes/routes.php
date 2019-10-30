@@ -21,3 +21,12 @@ $router->get('deconexion', ['controller'=>'AuthController', 'action'=>'deconnexi
 //-----------------------------------------------------------------------------------
 //Admin access
 $router->get('admin', ['controller'=>'AdminController', 'action'=>'index'])->withMiddleware('admin');
+$router->get('gestionPosts', ['controller'=>'AdminController', 'action'=>'gestionPosts'])->withMiddleware('admin');
+$router->get('gestionComments', ['controller'=>'AdminController', 'action'=>'gestionComments'])->withMiddleware('admin');
+$router->get('gestionUsers', ['controller'=>'UserController', 'action'=>'all'])->withMiddleware('admin');
+$router->post('gestionUsers', ['controller'=>'AdminController', 'action'=>'storeUser'])->withMiddleware('admin'); //ajout d'un utilisateur 
+
+$router->get('gestionUser/update/:userId', ['controller'=>'AdminController', 'action'=>'modifyUser'])->withParam('userId', '[0-9]+')->withMiddleware('admin');
+$router->post('gestionUser/update/:userId', ['controller'=>'AdminController', 'action'=>'updateUser'])->withParam('userId', '[0-9]+')->withMiddleware('admin');
+
+$router->get('gestionUser/delete/:userId', ['controller'=>'AdminController', 'action'=>'deleteUser'])->withParam('userId', '[0-9]+')->withMiddleware('admin');

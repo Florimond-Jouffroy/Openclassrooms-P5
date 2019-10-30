@@ -44,13 +44,13 @@ class UserController extends Controller implements iCRUD
         {
             $_SESSION['flash'] = 'Cette email est déjà utiliser !';
             $_SESSION['flash_type'] = 'danger';
-            return header('location: '.$this->url('inscription'));
+            header('location: '.$this->url('inscription'));
             exit;
         }
         elseif($password != $passwordv)
         {
             flashError('Password à vérifier !');
-            return header('location: '.$this->url('inscription'));
+            header('location: '.$this->url('inscription'));
             exit;
         }
         else
@@ -94,5 +94,7 @@ class UserController extends Controller implements iCRUD
     public function all()
     {
         
+        $users = $this->userManager->getUsers();
+        return $this->render('gestionUsers.html', ['users'=> $users]);
     }
 }
