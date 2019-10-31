@@ -11,9 +11,9 @@ interface iCRUD
 
     public function store(); // Traitement du formulaire et engirestement bdd
 
-    public function modify();
+    public function modify($id);
 
-    public function update();
+    public function update($id);
 
     public function show($id);
 

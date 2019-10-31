@@ -10,7 +10,7 @@ class Post extends Entity
     private $content; 
     private $dateCreation;
     private $dateUpdate;
-    private $userId;
+    private $user_id;
   
 
 
@@ -48,9 +48,9 @@ class Post extends Entity
         return $this->dateUpdate;
     }
 
-    public function userId()
+    public function user_id()
     {
-        return $this->userId;
+        return $this->user_id;
     }
     
 
@@ -88,9 +88,9 @@ class Post extends Entity
         $this->dateUpdate = $dateUpdate;
     }
 
-    public function setUserId($userId)
+    public function setUser_id($user_id)
     {
-        $this->userId = $userId;
+        $this->user_id = $user_id;
     }
 
 }

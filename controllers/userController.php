@@ -37,7 +37,7 @@ class UserController extends Controller implements iCRUD
         {
             $_SESSION['flash'] = 'Vous n\'avez pas bien remplie le formulaire !';
             $_SESSION['flash_type'] = 'danger';
-            return header('location: '.$this->url('inscription'));
+            header('location: '.$this->url('inscription'));
             exit;
         }
         elseif($this->userManager->getUserByLogin($email) != false)
@@ -76,12 +76,12 @@ class UserController extends Controller implements iCRUD
         }
     }
 
-    public function modify()
+    public function modify($id)
     {
 
     }
 
-    public function update()
+    public function update($id)
     {
 
     }

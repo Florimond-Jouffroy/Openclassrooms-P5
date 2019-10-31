@@ -81,8 +81,8 @@
                         </td>
                         <td>{{ user.date_creation|e }}</td>
                         <td>
-                            <a href="{{ url('gestionUser') }}/update/{{ user.id }}" class="btn btn-secondary" role="button">Modifier</a>
-                            <a href="{{ url('gestionUser') }}/delete/{{ user.id }}" class="btn btn-danger" role="button">Supprimer</a>
+                            <a href="{{ url('gestionUsers') }}/update/{{ user.id }}" class="btn btn-secondary" role="button">Modifier</a>
+                            <a href="{{ url('gestionUsers') }}/delete/{{ user.id }}" class="btn btn-danger" role="button">Supprimer</a>
                         </td>
                     </tr>
                 {% endfor %}

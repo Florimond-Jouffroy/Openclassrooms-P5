@@ -61,7 +61,7 @@ class AdminController extends Controller
     public function updateUser($id)
     {
 
-        $oldUser = $this->userManager->getUserById($id);
+        
 
         $firstname = $_POST['firstname'];
         $lastname = $_POST['lastname'];

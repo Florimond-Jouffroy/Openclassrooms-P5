@@ -8,8 +8,35 @@
 {% endblock %}
 
 {% block content %}
-
-Gestion post
-
+<a href="{{ url('gestionPosts') }}/new"  class="btn btn-info m-1">Ajouter un article</a>
+<p class="h4 font-weight-normal pl-2">Les articles</p>
+    <div class="table-responsive overflow-scroll">
+        <table class="table table-bordered ">
+            <thead class="thead-dark ">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Chapo</th>
+                    <th scope="col">Date de création</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in posts %}
+                <tr>
+                    <th scope="row">{{ post.id|e }}</th>
+                    <td>{{ post.title|e }}</td>
+                    <td>{{ post.chapo|e }}</td>
+                    <td>{{ post.date_creation|e }}</td>
+                    <td>
+                        <a href="{{ url('gestionPosts') }}/update/{{ post.id }}" class="btn btn-secondary m-1" role="button">Modifier</a>
+                        <a href="{{ url('gestionPosts') }}/delete/{{ post.id }}" class="btn btn-danger m-1" role="button">Supprimer</a>
+                    </td>
+                </tr>
+                    
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
 {% endblock %}

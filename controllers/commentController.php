@@ -54,12 +54,12 @@ class CommentController extends Controller implements iCRUD
         }
     }
 
-    public function modify()
+    public function modify($id)
     {
 
     }
 
-    public function update()
+    public function update($id)
     {
 
     }
