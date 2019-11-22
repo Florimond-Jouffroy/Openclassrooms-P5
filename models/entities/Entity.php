@@ -17,8 +17,6 @@ abstract class Entity
     {
         foreach($data as $key => $value)
         {
-            // Transformation de underscore_case vers camelCase
-            $key = lcfirst(str_replace('_','',ucwords($key, '_')));
 
             // On récupère le nom du setter correspondant à l'attribut.
             $method = 'set'.ucfirst($key);

@@ -3,11 +3,44 @@
 namespace Managers;
 
 use Entities\Post;
+use Entities\User;
 use PDO;
 
 class PostManager extends BddManager
 {
     
+    public function getPostsWithAuteur()
+    {
+        $req = $this->dbase->prepare('SELECT * FROM post p INNER JOIN user u ON p.user_id = u.id');
+        $req->execute();
+        
+        $posts = [];
+        while( ($row = $req->fetch(PDO::FETCH_ASSOC)) !== false)
+        {
+            $user = new User([
+                'id'=>$row['user_id'],
+                'firstname'=>$row['firstname'],
+                'lastname'=>$row['lastname'],
+                'email'=>$row['email'],
+                'user_type'=>$row['user_type']
+            ]);
+
+            $post = new Post([
+                'id'=>$row['id'],
+                'title'=>$row['title'],
+                'chapo'=>$row['chapo'],
+                'content'=>$row['content'],
+                'dateCreation'=>$row['date_creation'],
+                'dateUpdate'=>$row['date_update'],
+                'user'=>$user,
+            ]);
+
+            $posts[] = $post;
+        }
+
+        return $posts;
+    }
+
 
     public function getPosts()
     {
@@ -27,7 +60,7 @@ class PostManager extends BddManager
         FROM post 
         WHERE id = ?');
         $req->execute([$id]);
-
+        
         $req->setFetchMode(PDO::FETCH_CLASS, 'Entities\Post');
         return $req->fetch();    
     }

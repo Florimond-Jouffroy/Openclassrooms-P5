@@ -37,8 +37,9 @@ Abstract class Controller
         $flash = new \Twig_SimpleFunction('flash', function(){
 
             if(isset($_SESSION['flash'])){
-                echo '<div class="my-4 alert alert-'. $_SESSION['flash_type'] .'">'. $_SESSION['flash'] . '</div>';
+                $texte =  '<div class="my-4 alert alert-'. $_SESSION['flash_type'] .'">'. $_SESSION['flash'] . '</div>';
                 unset($_SESSION['flash']);
+                return $texte;
             }
 
         });
@@ -108,10 +109,16 @@ Abstract class Controller
         $path = getenv('ENV_URL').'/'.$url;
 
         if($args !== null) {
-            $path += '?';
-            foreach($args as $name => $param)
-            {
-                $path += $name.'='.$param.'&';
+            if(is_array($args)) {
+                if(substr($url, -1) != '/')
+                    $path .= '/';
+                foreach($args as $arg)
+                {
+                    $path .= $arg;
+                    $path .= '/';
+                }
+            } else {
+                throw new \InvalidArgumentException("args is not array");
             }
         }
 

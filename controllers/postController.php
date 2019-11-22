@@ -2,7 +2,7 @@
 
 namespace Controllers;
 
-use Managers\{PostManager, CommentManager};
+use Managers\{PostManager, CommentManager, UserManager};
 use Entities\Post;
 
 
@@ -11,12 +11,14 @@ class PostController extends Controller implements iCRUD
     
     private $commentManager;
     private $postManager;
+    private $userManager;
 
     public function __construct()
     {
         parent::__construct();
         $this->commentManager = new CommentManager();
         $this->postManager = new PostManager();
+        $this->userManager = new UserManager();
     }
     
     
@@ -57,7 +59,8 @@ class PostController extends Controller implements iCRUD
 
     public function delete($id)
     {
-        $this->postManager->delete($id);
+        $this->commentManager->deleteByPostId($id); // suppression des commentaires lié au post
+        $this->postManager->delete($id); // suppression du post
 
         $_SESSION['flash'] = 'Article supprimer.';
         $_SESSION['flash_type'] = 'success';
@@ -110,9 +113,19 @@ class PostController extends Controller implements iCRUD
     public function show($id)
     {
         $post = $this->postManager->getPostById($id);
-        $comments = $this->commentManager->getComments($id);
+        $user = $this->userManager->getUserById($post->user_id());
+        $comments = $this->commentManager->getCommentsByPostTest($id);
+        return $this->render('post.html', compact('post','user','comments'));
+    }
 
-        return $this->render('post.html', compact('post', 'comments'));
+    
+    public function showAdmin($id)
+    {
+        $post = $this->postManager->getPostById($id);
+        $user = $this->userManager->getUserById($post->user_id());
+        $comments = $this->commentManager->getCommentsByPostTest($id);
+
+        return $this->render('gestionPostsShow.html', compact('post','user','comments'));
     }
 
     public function all()
@@ -125,8 +138,7 @@ class PostController extends Controller implements iCRUD
 
     public function allAdmin()
     {
-         
-        $posts = $this->postManager->getPosts();
+        $posts = $this->postManager->getPostsWithAuteur();
         return $this->render('gestionPosts.html', ['posts'=> $posts]);
     }
 }

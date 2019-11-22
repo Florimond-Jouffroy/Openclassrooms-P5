@@ -11,6 +11,7 @@ class Post extends Entity
     private $dateCreation;
     private $dateUpdate;
     private $user_id;
+    private $user;
   
 
 
@@ -52,7 +53,10 @@ class Post extends Entity
     {
         return $this->user_id;
     }
-    
+    public function user()
+    {
+        return $this->user;
+    }
 
     /**
      * -- Setters --
@@ -92,5 +96,9 @@ class Post extends Entity
     {
         $this->user_id = $user_id;
     }
-
+    
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+    }
 }

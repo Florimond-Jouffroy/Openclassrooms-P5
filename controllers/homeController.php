@@ -10,11 +10,9 @@ class HomeController extends Controller
 
     public function home()
     {
-        $postManager = new PostManager();
-
-        $tests = $postManager->getPosts();
         
-        return $this->render('home.html', ['posts'=> $tests]);
+        
+        return $this->render('home.html');
     }
 
     /*

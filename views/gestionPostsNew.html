@@ -1,7 +1,7 @@
 {% extends "layoutAdmin.html" %}
 
 {% block nav %}
-    <a href="{{ url('admin') }}" class="list-group-item list-group-item-action text-light bg-dark">Dashboard</a>
+    
     <a href="{{ url('gestionPosts') }}" class="list-group-item list-group-item-action text-light bg-dark activAdmin" >Gestion Articles</a>
     <a href="{{ url('gestionComments') }}" class="list-group-item list-group-item-action text-light bg-dark">Gestion Comments</a>
     <a href="{{ url('gestionUsers') }}" class="list-group-item list-group-item-action text-light bg-dark">Gestion Users</a>
@@ -11,7 +11,7 @@
 
 <a href="{{ url('gestionPosts') }}" class="btn btn-dark mb-4">Retour</a>
 
-<form action="{{ url('gestionPosts') }}/new" method="POST">
+<form action="{{ url('gestionPosts/new') }}" method="POST">
 
     <div class="form-group">
         <label for="title">Titre</label>

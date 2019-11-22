@@ -7,9 +7,11 @@ class Comment extends Entity
     private $id;
     private $content;
     private $disabled;
-    private $dateCreation;
+    private $date_creation;
     private $user_id;
     private $post_id;
+    private $user;
+    private $post;
 
    
     //Getters
@@ -29,9 +31,9 @@ class Comment extends Entity
         return $this->disabled;
     }
 
-    public function dateCreation()
+    public function date_creation()
     {
-        return $this->dateCreation;
+        return $this->date_creation;
     }
 
     public function user_id()
@@ -42,6 +44,16 @@ class Comment extends Entity
     public function post_id()
     {
         return $this->post_id;
+    }
+
+    public function user()
+    {
+        return $this->user;
+    }
+
+    public function post()
+    {
+        return $this->post;
     }
 
     //Setters
@@ -61,9 +73,9 @@ class Comment extends Entity
         $this->disabled = $disabled;
     }
 
-    public function setDateCreation($dateCreation) 
+    public function setDate_creation($date_creation) 
     {
-    	$this->dateCreation = $dateCreation;
+    	$this->date_creation = $date_creation;
     }
 
     public function setUser_id($user_id){
@@ -73,5 +85,15 @@ class Comment extends Entity
     public function setPost_id($post_id) 
     {
     	$this->post_id = $post_id;
+    }
+
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+    }
+
+    public function setPost(Post $post)
+    {
+        $this->post = $post;
     }
 }
