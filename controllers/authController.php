@@ -2,7 +2,7 @@
 
 namespace Controllers;
 
-
+use App\Session;
 use Managers\UserManager;
 use Entities\User;
 

@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Managers\UserManager;
 use Entities\User;
+use App\Session;
 
 class UserController extends Controller implements iCRUD
 {

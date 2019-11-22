@@ -1,7 +1,7 @@
 <?php 
 
 namespace Controllers;
-
+use App\Session;
 use Managers\PostManager;
 
 class BlogController extends Controller 

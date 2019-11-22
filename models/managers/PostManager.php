@@ -11,7 +11,8 @@ class PostManager extends BddManager
     
     public function getPostsWithAuteur()
     {
-        $req = $this->dbase->prepare('SELECT * FROM post p INNER JOIN user u ON p.user_id = u.id');
+        $req = $this->dbase->prepare('SELECT p.id, p.title, p.chapo, p.content, p.date_creation, p.date_update, p.user_id, u.firstname, u.lastname, u.email 
+            FROM post p INNER JOIN user u ON p.user_id = u.id');
         $req->execute();
         
         $posts = [];
@@ -22,7 +23,7 @@ class PostManager extends BddManager
                 'firstname'=>$row['firstname'],
                 'lastname'=>$row['lastname'],
                 'email'=>$row['email'],
-                'user_type'=>$row['user_type']
+    
             ]);
 
             $post = new Post([

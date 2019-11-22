@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Managers\PostManager;
+use App\Session;
 
 class HomeController extends Controller 
 {

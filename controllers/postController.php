@@ -4,7 +4,7 @@ namespace Controllers;
 
 use Managers\{PostManager, CommentManager, UserManager};
 use Entities\Post;
-
+use App\Session;
 
 class PostController extends Controller implements iCRUD
 {
@@ -20,7 +20,6 @@ class PostController extends Controller implements iCRUD
         $this->postManager = new PostManager();
         $this->userManager = new UserManager();
     }
-    
     
     public function create()
     {

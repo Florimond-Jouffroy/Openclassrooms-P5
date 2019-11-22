@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Managers\CommentManager;
 use Entities\Comment;
+use App\Session;
 
 class CommentController extends Controller implements iCRUD
 {
