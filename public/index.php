@@ -1,11 +1,11 @@
 <?php 
 
-session_start();
 
 require '../vendor/autoload.php';
 
+use App\{Router, Session};
 
-use App\Router;
+Session::start();
 
 $dotenv = \Dotenv\Dotenv::create('../');
 $dotenv->load();

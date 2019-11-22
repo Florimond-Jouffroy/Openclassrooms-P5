@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use App\Session;
 /**
  * Classe abstraite Controller
  * Fournit des services commun pour les autres classes controllers dérivées
@@ -36,9 +37,9 @@ Abstract class Controller
          */
         $flash = new \Twig_SimpleFunction('flash', function(){
 
-            if(isset($_SESSION['flash'])){
-                $texte =  '<div class="my-4 alert alert-'. $_SESSION['flash_type'] .'">'. $_SESSION['flash'] . '</div>';
-                unset($_SESSION['flash']);
+            if(Session::hasFlash()){
+                $texte =  '<div class="my-4 alert alert-'.Session::getFlashType() .'">'. Session::getFlash() . '</div>';
+                Session::delete('flash');
                 return $texte;
             }
 
@@ -49,32 +50,13 @@ Abstract class Controller
          */
         $auth = new \Twig_SimpleFunction('auth', function(){
 
-            if(isset($_SESSION['login'])){
-                return true;
-            }
-            else{
-                return false;
-            }
+            return Session::has('login');
 
         });
 
         $isAdmin = new \Twig_SimpleFunction('isAdmin', function(){
 
-            if(isset($_SESSION['user_type']))
-            {
-                if($_SESSION['user_type'] == 1)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
+            return (Session::has('user_type') && Session::get('user_type') == 1);
 
         });
 
@@ -125,18 +107,5 @@ Abstract class Controller
         return $path;
     }
        
-
-   protected function flashError($message){
-        $_SESSION['flash'] = $message;
-        $_SESSION['flash_type'] = 'error';
-   }
-
-   protected function flashSuccess($message){
-        $_SESSION['flash'] = $message;
-        $_SESSION['flash_type'] = 'success';
-   }
-
-
-
 
 }

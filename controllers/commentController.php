@@ -26,12 +26,8 @@ class CommentController extends Controller implements iCRUD
     {
         $this->commentManager->delete($id);
 
-        $_SESSION['flash'] = 'Commentaire Supprimer.';
-        $_SESSION['flash_type'] = 'success';
-
-            
+        Session::flash('success', 'Commentaire Supprimer.');
         header('location: '.$this->url('gestionComments'));
-        exit;
     }
 
     public function store() // Traitement du formulaire et engirestement bdd
@@ -40,30 +36,23 @@ class CommentController extends Controller implements iCRUD
         $postId = $_POST['postId'];
         $userId = $_SESSION['userId'];
 
-       
         if($commentContent == '' || $postId == '')
         {
-            $_SESSION['flash'] = 'Vous n\'avez pas écrit de commentaire !';
-            $_SESSION['flash_type'] = 'danger';
-           
-            return header('location: '.$this->url('post/'.$postId));
-            exit;
+            Session::flash('danger', 'Vous n\'avez pas écrit de commentaire !');
+            header('location: '.$this->url('post/'.$postId));
+            return;
         }
-        else
-        {
-            $comment = new Comment();
-            $comment->setContent($commentContent);
-            $comment->setDisabled(0);
-            $comment->setUser_id($userId);
-            $comment->setPost_id($postId);
+      
+        $comment = new Comment();
+        $comment->setContent($commentContent);
+        $comment->setDisabled(0);
+        $comment->setUser_id($userId);
+        $comment->setPost_id($postId);
 
-            $this->commentManager->create($comment);
+        $this->commentManager->create($comment);
 
-            $_SESSION['flash'] = 'Commentaire ajouter !';
-            $_SESSION['flash_type'] = 'success';
-            return header('location: '.$this->url('post/'.$postId));
-            exit;
-        }
+        Session::flash('success', 'Commentaire ajouter !');
+        header('location: '.$this->url('post/'.$postId));
     }
 
     
@@ -91,13 +80,11 @@ class CommentController extends Controller implements iCRUD
         }
        
         $this->commentManager->update($comment);
-
-        $_SESSION['flash'] = 'Commentaire Modifier.';
-        $_SESSION['flash_type'] = 'success';
+        Session::flash('success', 'Commentaire modifié');
 
        // header('location: '.$this->url('gestionPostsShow').'/'.$comment->post_id());
         header('location: '.$this->url('gestionPostsShow', [$comment->post_id()]));
-        exit;
+      
 
     }
 
@@ -105,12 +92,19 @@ class CommentController extends Controller implements iCRUD
 
     public function updateTest($id)
     {
-
+        // ATTENTION A MODIFIER
         $content = null;
         $disabled = null;
         $date_creation = null;
         $user_id = null;
         $post_id = null;
+
+        foreach($datas as $key=>$data) {
+            if(!empty($data)) {
+                $method = 'set'.ucfirst($key);
+                $comment->$method($data);
+            }
+        }
         
         if(isset($_POST['content']))
         {
@@ -162,12 +156,8 @@ class CommentController extends Controller implements iCRUD
 
         $this->commentManager->update($comment);
 
-        $_SESSION['flash'] = 'Commentaire Modifier.';
-        $_SESSION['flash_type'] = 'success';
-
+        Session::flash('success', 'Commentaire Modifier.');
         header('location: '.$this->url('gestionPosts'));
-        exit;
-
     }
 
     public function show($id)

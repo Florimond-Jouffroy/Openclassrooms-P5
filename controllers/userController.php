@@ -14,7 +14,6 @@ class UserController extends Controller implements iCRUD
     {
         parent::__construct();
         $this->userManager = new UserManager();
-
     }
 
     public function create()
@@ -30,49 +29,39 @@ class UserController extends Controller implements iCRUD
         $password = $_POST['password'];
         $passwordv = $_POST['passwordv'];
 
-
         // vérification que l email est un email et vérification firstname lastname caractere alphanumérique
 
         if($firstname == ''|| $lastname == '' || $email == '' || $password == '')
         {
-            $_SESSION['flash'] = 'Vous n\'avez pas bien remplie le formulaire !';
-            $_SESSION['flash_type'] = 'danger';
+            Session::flash('danger', 'Vous n\'avez pas bien remplie le formulaire !');
             header('location: '.$this->url('inscription'));
-            exit;
+            return;
         }
         elseif($this->userManager->getUserByLogin($email) != false)
         {
-            $_SESSION['flash'] = 'Cette email est déjà utiliser !';
-            $_SESSION['flash_type'] = 'danger';
+            Session::flash('danger', 'Cette email est déjà utiliser !');
             header('location: '.$this->url('inscription'));
-            exit;
+            return;
         }
         elseif($password != $passwordv)
         {
-            flashError('Password à vérifier !');
+            Session::flash('danger', 'Password à vérifier !');
             header('location: '.$this->url('inscription'));
-            exit;
+            return;
         }
         else
         {
-
             $user = new User($_POST);
-
             $user->hashPassword();
-
             $this->userManager->create($user);
             
-            // conneceter directement l'utilisateur et création de variable de session
-            $_SESSION['login'] = true;
-            $_SESSION['firstname'] = $user->firstname();
-            $_SESSION['lastname'] = $user->lastname();
-            $_SESSION['userId'] = $user->id();
-            $_SESSION['flash'] = 'Vous êtes bien connecté';
-            $_SESSION['flash_type'] = 'success';
-
-            
+            // Conneceter directement l'utilisateur et création des variables de session
+            Session::put('login', true);
+            Session::put('firstname', $user->firstname());
+            Session::put('lastname', $user->lastname());
+            Session::put('userId', $user->id());
+            Session::flash('success', 'Vous êtes bien connecté');
             header('location: '.$this->url('home'));
-            exit;
         }
     }
 
@@ -85,6 +74,7 @@ class UserController extends Controller implements iCRUD
     public function updateUserType($id)
     {
         $user = $this->userManager->getUserById($id);
+
         if($user->user_type() == 0)
         {
             $user->setUser_type(1);
@@ -96,13 +86,8 @@ class UserController extends Controller implements iCRUD
 
         $this->userManager->update($user);
 
-        $_SESSION['flash'] = 'Utilisateur Modifier.';
-        $_SESSION['flash_type'] = 'success';
-
-        
+        Session::flash('success', 'Utilisateur Modifier.');
         header('location: '.$this->url('gestionUsers'));
-        exit;
-
     }
 
     public function update($id)
@@ -112,41 +97,33 @@ class UserController extends Controller implements iCRUD
         $lastname = $_POST['lastname'];
         $email = $_POST['email'];
         
-        //on récupére l'utilisateur enregistrer en base lié a l'id
+        // On récupére l'utilisateur enregistrer en base lié a l'id
         $user = $this->userManager->getUserById($id);
 
         if($firstname == ''|| $lastname == '' || $email == '')
         {
-            $_SESSION['flash'] = 'Vous n\'avez pas bien remplie le formulaire !';
-            $_SESSION['flash_type'] = 'danger';
-
+            Session::flash('danger', 'Vous n\'avez pas bien remplie le formulaire !');
             header('location: '.$this->url('gestionUsers/update',$user->id()));
-            exit;
+            return;
         }
-        // on vérifie que si l'email a changer que la nouvelle est bien libre
+        // On vérifie que si l'email a changer que la nouvelle est bien libre
         elseif($email != $user->email() && $this->userManager->getUserByLogin($email) != false) 
         {
-            $_SESSION['flash'] = 'Email déjà utiliser par un utilisateur!';
-            $_SESSION['flash_type'] = 'danger';
-
+            Session::flash('danger', 'Email déjà utiliser par un utilisateur!');
             header('location: '.$this->url('gestionUsers/update',$user->id()));
-            exit;
+            return;
         }
         else
         {
-            // on met a jour les variable de l'utilisateur
+            // On met a jour les variable de l'utilisateur
             $user->setFirstname($firstname);
             $user->setLastname($lastname);
             $user->setEmail($email);
 
             $this->userManager->update($user);
 
-            $_SESSION['flash'] = 'Utilisateur Modifier.';
-            $_SESSION['flash_type'] = 'success';
-
-            
+            Session::flash('success', 'Utilisateur Modifier.');
             header('location: '.$this->url('gestionUsersShow', [$user->id()]));
-            exit;
         }
 
     }
@@ -154,13 +131,8 @@ class UserController extends Controller implements iCRUD
     public function delete($id)
     {
         $this->userManager->delete($id);
-
-        $_SESSION['flash'] = 'Utilisateur Supprimer.';
-        $_SESSION['flash_type'] = 'success';
-
-            
+        Session::flash('success', 'Utilisateur Supprimer.');
         header('location: '.$this->url('gestionUsers'));
-        exit;
     }
 
     public function show($id)

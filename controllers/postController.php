@@ -36,10 +36,9 @@ class PostController extends Controller implements iCRUD
 
         if($title == '' || $chapo == '' || $content == '')
         {
-            $_SESSION['flash'] = 'Vous n\'avez pas bien remplie le formulaire !';
-            $_SESSION['flash_type'] = 'danger';
+            Session::flash('danger', 'Vous n\'avez pas bien remplie le formulaire !');
             header('location: '.$this->url('gestionPosts'));
-            exit;
+            return;
         }
         else
         {
@@ -48,12 +47,8 @@ class PostController extends Controller implements iCRUD
 
             $this->postManager->create($post);
 
-            $_SESSION['flash'] = 'Article ajouter.';
-            $_SESSION['flash_type'] = 'success';
-
-            
+            Session::flash('success', 'Article ajouter.');
             header('location: '.$this->url('gestionPosts'));
-            exit;
         }
     }
 
@@ -62,12 +57,8 @@ class PostController extends Controller implements iCRUD
         $this->commentManager->deleteByPostId($id); // suppression des commentaires lié au post
         $this->postManager->delete($id); // suppression du post
 
-        $_SESSION['flash'] = 'Article supprimer.';
-        $_SESSION['flash_type'] = 'success';
-
-            
+        Session::flash('success', 'Article supprimer.');
         header('location: '.$this->url('gestionPosts'));
-        exit;
     }
 
     public function modify($id)
@@ -85,16 +76,14 @@ class PostController extends Controller implements iCRUD
         
         if($title == ''|| $chapo == '' || $content == '')
         {
-            $_SESSION['flash'] = 'Vous n\'avez pas bien remplie le formulaire !';
-            $_SESSION['flash_type'] = 'danger';
-
+            Session::flash('danger', 'Vous n\'avez pas bien remplie le formulaire !');
             header('location: '.$this->url('gestionPosts'));
-            exit;
+            return;
         }
         else
         {
             $post = $this->postManager->getPostById($id);
-            
+
             $post->setTitle($title);
             $post->setChapo($chapo);
             $post->setContent($content);
@@ -102,11 +91,8 @@ class PostController extends Controller implements iCRUD
 
             $this->postManager->update($post);
 
-            $_SESSION['flash'] = 'Article Modifier.';
-            $_SESSION['flash_type'] = 'success';
-
+            Session::flash('success', 'Article Modifier.');
             header('location: '.$this->url('gestionPosts'));
-            exit;
         }
     }
 
@@ -118,7 +104,6 @@ class PostController extends Controller implements iCRUD
         return $this->render('post.html', compact('post','user','comments'));
     }
 
-    
     public function showAdmin($id)
     {
         $post = $this->postManager->getPostById($id);
@@ -130,11 +115,9 @@ class PostController extends Controller implements iCRUD
 
     public function all()
     {
-        
         $posts = $this->postManager->getPosts();
         return $this->render('home.html', ['posts'=> $posts]);
     }
-
 
     public function allAdmin()
     {
