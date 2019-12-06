@@ -18,6 +18,9 @@ $router->get('login', ['controller'=>'AuthController', 'action'=>'login']);
 $router->post('login', ['controller'=>'AuthController', 'action'=>'connexion']);
 $router->get('deconexion', ['controller'=>'AuthController', 'action'=>'deconnexion']);
 
+//message
+$router->post('message', ['controller'=>'HomeController', 'action'=>'message']);
+
 //-----------------------------------------------------------------------------------
 //Admin access
 

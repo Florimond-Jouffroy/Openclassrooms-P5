@@ -60,16 +60,8 @@ class CommentManager extends BddManager
 
     
     // Retourne tous les commentaires lié au post_id
+  
     public function getCommentsByPost($post_id)
-    {
-        $req = $this->dbase->prepare('SELECT * FROM comment WHERE post_id = ?');
-        $req->execute([$post_id]);
-        $req->setFetchMode(PDO::FETCH_CLASS, 'Entities\Comment');
-
-        return $req->fetchAll();
-    }
-
-    public function getCommentsByPostTest($post_id)
     {
         $req = $this->dbase->prepare('SELECT * FROM comment c INNER JOIN user u ON c.user_id = u.id WHERE c.post_id = ?');
         $req->execute([$post_id]);

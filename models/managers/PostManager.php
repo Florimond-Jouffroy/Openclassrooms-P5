@@ -42,6 +42,14 @@ class PostManager extends BddManager
         return $posts;
     }
 
+    public function getLastPosts()
+    {
+        $req = $this->dbase->prepare('SELECT * FROM post ORDER BY date_creation LIMIT 3');
+        $req->execute();
+ 
+        $req->setFetchMode(PDO::FETCH_CLASS, 'Entities\Post');
+        return $req->fetchAll();
+    }
 
     public function getPosts()
     {

@@ -12,13 +12,13 @@
     <title>Document</title>
 </head>
 
-<body>
+<body class="d-flex flex-column justify-content-between ">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark  fixed-top shadow-sm" style="background-color: #202020;">
         <div class="container">
             <a class="navbar-brand" href="{{url('home')}}">
-                Logo
+                <img src="{{url('images/logo.png')}}" alt="" style="max-height:40px ;">
             </a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup">
@@ -63,7 +63,7 @@
 
     </nav>
 
-    <main role="main" class="container">
+    <main role="main" class="container {% block mainCss %}{% endblock %} mt-5" >
 
         {{ flash()|raw }}
 
@@ -73,9 +73,19 @@
         {% endblock %}
     </main>
 
-    <footer id="footer-bottom" class="footer py-3 bg-dark">
-        <div class="container text-center">
-            <p class="text-muted">© copyright 2019 Florimond JOUFFROY</p>
+    <footer id="footer-bottom" class="footer py-3 bg-dark text-light ">
+        <div class="container d-flex flex-column">
+            <div class="d-flex flex-row">
+                    {% block footer %}
+
+
+                    {% endblock %}
+            
+            </div>
+            <div class="text-center">
+                <p class="text-muted">© copyright 2019 Florimond JOUFFROY</p>
+            </div>
+           
         </div>
     </footer>
 

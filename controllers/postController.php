@@ -99,7 +99,7 @@ class PostController extends Controller implements iCRUD
     {
         $post = $this->postManager->getPostById($id);
         $user = $this->userManager->getUserById($post->user_id());
-        $comments = $this->commentManager->getCommentsByPostTest($id);
+        $comments = $this->commentManager->getCommentsByPost($id);
         return $this->render('post.html', compact('post','user','comments'));
     }
 
@@ -107,7 +107,7 @@ class PostController extends Controller implements iCRUD
     {
         $post = $this->postManager->getPostById($id);
         $user = $this->userManager->getUserById($post->user_id());
-        $comments = $this->commentManager->getCommentsByPostTest($id);
+        $comments = $this->commentManager->getCommentsByPost($id);
 
         return $this->render('gestionPostsShow.html', compact('post','user','comments'));
     }
