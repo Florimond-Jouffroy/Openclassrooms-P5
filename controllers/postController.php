@@ -28,15 +28,17 @@ class PostController extends Controller implements iCRUD
 
     public function store() // Traitement du formulaire et engirestement bdd
     {
-        $title = $_POST['title'];
-        $chapo = $_POST['chapo'];
-        $content = $_POST['content'];
-        $user_id = $_SESSION['userId'];
+        $title = $this->request->postTitle();
+        $chapo = $this->request->postChapo();
+        $content = $this->request->postContent();
+        $user_id = Session::get('userId');
+        
 
         if($title == '' || $chapo == '' || $content == '')
         {
             Session::flash('danger', 'Vous n\'avez pas bien remplie le formulaire !');
-            header('location: '.$this->url('gestionPosts'));
+            //header('location: '.$this->url('gestionPosts'));
+            $this->request->redirect($this->url('gestionPosts'));
             return;
         }
         else
@@ -47,7 +49,8 @@ class PostController extends Controller implements iCRUD
             $this->postManager->create($post);
 
             Session::flash('success', 'Article ajouter.');
-            header('location: '.$this->url('gestionPosts'));
+            //header('location: '.$this->url('gestionPosts'));
+            $this->request->redirect($this->url('gestionPosts'));
         }
     }
 
@@ -57,22 +60,25 @@ class PostController extends Controller implements iCRUD
         $this->postManager->delete($id); // suppression du post
 
         Session::flash('success', 'Article supprimer.');
-        header('location: '.$this->url('gestionPosts'));
+        //header('location: '.$this->url('gestionPosts'));
+        $this->request->redirect($this->url('gestionPosts'));
     }
 
     public function modify($id)
     {
         $post = $this->postManager->getPostById($id);
-        return $this->render('gestionPostsUpdate.html', ['post'=> $post]);
+        $auteurs = $this->userManager->getAdmins();
+        return $this->render('gestionPostsUpdate.html', ['post'=> $post, 'auteurs'=>$auteurs]);
     }
 
     public function update($id)
     {
-        $title = $_POST['title'];
-        $chapo = $_POST['chapo'];
-        $content = $_POST['content'];
-        $user_id = $_SESSION['userId'];
+        $title = $this->request->postTitle();
+        $chapo = $this->request->postChapo();
+        $content = $this->request->postContent();
+        $user_id = $this->request->postAuteur();
         
+
         if($title == ''|| $chapo == '' || $content == '')
         {
             Session::flash('danger', 'Vous n\'avez pas bien remplie le formulaire !');
@@ -87,11 +93,12 @@ class PostController extends Controller implements iCRUD
             $post->setChapo($chapo);
             $post->setContent($content);
             $post->setUser_id($user_id);
-
+            
             $this->postManager->update($post);
 
             Session::flash('success', 'Article Modifier.');
-            header('location: '.$this->url('gestionPosts'));
+            //header('location: '.$this->url('gestionPosts'));
+            $this->request->redirect($this->url('gestionPosts'));
         }
     }
 
@@ -114,8 +121,8 @@ class PostController extends Controller implements iCRUD
 
     public function all()
     {
-        $posts = $this->postManager->getPosts();
-        return $this->render('home.html', ['posts'=> $posts]);
+        $posts = $this->postManager->getPostsWithAuteur();
+        return $this->render('blog.html', ['posts'=> $posts]);
     }
 
     public function allAdmin()

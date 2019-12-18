@@ -68,9 +68,8 @@ class Route
                 
                 if(!$check)
                 {
-                    // Le mieux, lancer une erreur 403 et faire une page qui indique (vous avez pas les droits)
-                    throw new Exception('Pas les droits');
-                    return;
+                    $errorController = new \Controllers\ErrorController;
+                    $errorController->error403();
                 }
             }
         }

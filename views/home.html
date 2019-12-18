@@ -36,16 +36,16 @@
     </div>
     
    <div class="d-flex flex-row mt-4 justify-content-center">
-        <a href="#" class="px-2">
+        <a href="https://www.linkedin.com/in/florimond-jouffroy/" class="px-2">
            <img src="{{url('images/icons/linkedin.png')}}" alt="">
         </a>
-        <a href="#" class="px-2">
+        <a href="https://www.instagram.com/florimondjouffroy/" class="px-2">
             <img src="{{url('images/icons/instagram.png')}}" alt="">
         </a>
-        <a href="#" class="px-2">
+        <a href="https://twitter.com/FloJouffroy" class="px-2">
             <img src="{{url('images/icons/twitter.png')}}" alt="">
         </a>
-        <a href="#" class="px-2">
+        <a href="https://www.facebook.com/florimond.jouffroy" class="px-2">
             <img src="{{url('images/icons/facebook.png')}}" alt="">
         </a>
    </div>
@@ -91,16 +91,16 @@
             </div>
             
             <div class="d-flex flex-row mt-3 justify-content-center">
-                <a href="#" class="px-2">
+                <a href="https://www.linkedin.com/in/florimond-jouffroy/" class="px-2">
                 <img src="{{url('images/icons/linkedin.png')}}" alt="">
                 </a>
-                <a href="#" class="px-2">
+                <a href="https://www.instagram.com/florimondjouffroy/" class="px-2">
                     <img src="{{url('images/icons/instagram.png')}}" alt="">
                 </a>
-                <a href="#" class="px-2">
+                <a href="https://twitter.com/FloJouffroy" class="px-2">
                     <img src="{{url('images/icons/twitter.png')}}" alt="">
                 </a>
-                <a href="#" class="px-2">
+                <a href="https://www.facebook.com/florimond.jouffroy" class="px-2">
                     <img src="{{url('images/icons/facebook.png')}}" alt="">
                 </a>
             </div>
@@ -109,6 +109,16 @@
 
         
         <form action="{{ url('message') }}" method="POST" class="d-flex flex-column form-contact">
+            <div class="form-row form-group d-flex flex-column flex-md-row">
+                <div class="col">
+                    <label for="firstname">Prénom</label>
+                    <input type="text" name="firstname" id="firstname" placeholder="Prénom" class="form-control">
+                </div>
+                <div class="col mt-2 mt-md-0">
+                    <label for="lastname">Nom</label>
+                    <input type="text" name="lastname" id="lastname" placeholder="Nom de famille" class="form-control">
+                </div>
+            </div>
             <div class="form-group">
                 <label for="email">Votre Email:</label>
                 <input type="email" name="email" id="email" placeholder="e-mail" class="form-control">

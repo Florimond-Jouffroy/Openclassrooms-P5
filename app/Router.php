@@ -39,6 +39,8 @@ class Router
             throw new Exception('REQUEST method isn\'t correct');
         }
 
+
+        
         foreach($this->routes[$_SERVER['REQUEST_METHOD']] as $route)
         {
             if($route->match($this->action))
@@ -47,7 +49,9 @@ class Router
             }
         }
 
-        echo '404';
-        exit;
+       
+        // Erreur 404 
+        $errorController = new \Controllers\ErrorController;
+        $errorController->error404();
     }
 }

@@ -9,7 +9,7 @@
 {% block content %}
 
 	<a href="{{ url('gestionUsersShow', [user.id]) }}" class="btn btn-dark mb-4">Retour</a>
-	<form action="{{ url('gestionUsers/update', [user.id]) }}" method="POST" class="">
+	<form action="{{ url('gestionUsers/update', [user.id]) }}" method="POST" class="bg-light rounded p-4">
 
 		<div class="form-group">
 			<label for="firstname">Firstname</label>

@@ -5,6 +5,7 @@ namespace Controllers;
 use Managers\CommentManager;
 use Entities\Comment;
 use App\Session;
+//use App\Request;
 
 class CommentController extends Controller implements iCRUD
 {
@@ -28,19 +29,20 @@ class CommentController extends Controller implements iCRUD
         $this->commentManager->delete($id);
 
         Session::flash('success', 'Commentaire Supprimer.');
-        header('location: '.$this->url('gestionComments'));
+        //header('location: '.$this->url('gestionComments'));
+        $this->request->redirect($this->url('gestionComments'));
     }
 
     public function store() // Traitement du formulaire et engirestement bdd
     {
-        $commentContent = $_POST['comment'];
-        $postId = $_POST['postId'];
-        $userId = $_SESSION['userId'];
+        $commentContent = $this->request->postComment();
+        $postId = $this->request->postPostId();
+        $userId = Session::get('user_id');
 
         if($commentContent == '' || $postId == '')
         {
             Session::flash('danger', 'Vous n\'avez pas écrit de commentaire !');
-            header('location: '.$this->url('post/'.$postId));
+            $this->request->redirect($this->url('post/'.$postId));
             return;
         }
       
@@ -53,7 +55,8 @@ class CommentController extends Controller implements iCRUD
         $this->commentManager->create($comment);
 
         Session::flash('success', 'Commentaire ajouter !');
-        header('location: '.$this->url('post/'.$postId));
+        //header('location: '.$this->url('post/'.$postId));
+        $this->request->redirect($this->url('post/'.$postId));
     }
 
     
@@ -84,8 +87,8 @@ class CommentController extends Controller implements iCRUD
         Session::flash('success', 'Commentaire modifié');
 
        // header('location: '.$this->url('gestionPostsShow').'/'.$comment->post_id());
-        header('location: '.$this->url('gestionPostsShow', [$comment->post_id()]));
-      
+        //header('location: '.$this->url('gestionPostsShow', [$comment->post_id()]));
+        $this->request->redirect($this->url('gestionPostsShow', [$comment->post_id()]));
 
     }
 
@@ -93,72 +96,32 @@ class CommentController extends Controller implements iCRUD
 
     public function updateTest($id)
     {
-        // ATTENTION A MODIFIER
-        $content = null;
-        $disabled = null;
-        $date_creation = null;
-        $user_id = null;
-        $post_id = null;
-
-        foreach($datas as $key=>$data) {
-            if(!empty($data)) {
-                $method = 'set'.ucfirst($key);
-                $comment->$method($data);
-            }
-        }
         
-        if(isset($_POST['content']))
-        {
-            $content = $_POST['content'];
-        }
-        if(isset($_POST['disabled']))
-        {
-            $disabled = $_POST['disabled'];
-        }
-        if(isset($_POST['date_creation']))
-        {
-            $date_creation = $_POST['date_creation'];
-        }
-        if(isset($_POST['user_id']))
-        {
-            $user_id = $_POST['user_id'];
-        }
-        if(isset($_POST['post_id']))
-        {
-            $post_id = $_POST['post_id'];
-        }
-
+        $error = 0;
+        $error_msg = "";
+        
         $comment = $this->commentManager->getCommentById($id);
-
-        if($content != null)
+        $content = $this->request->postContent();
+        $disabled = $this->request->postDisabled();
+        if(empty($content)  && mb_strlen($content) < 3)
         {
+           $error++;
+           $error_msg .= "Le contenu fait moins de 3 caractères";
+        }
+
+        if($error == 0) {
             $comment->setContent($content);
-        }
-        
-        if($disabled != null)
-        {
             $comment->setDisabled($disabled);
+            
+            $this->commentManager->update($comment);
+
+            Session::flash('success', 'Commentaire Modifier.');
+
+        } else {
+            Session::flash('danger', $error_msg);
         }
-
-        if($date_creation != null)
-        {
-            $comment->setDate_creation($date_creation);
-        }
-
-        if($user_id != null)
-        {
-            $comment->setUser_id($user_id);
-        }
-
-        if($post_id != null)
-        {
-            $comment->setPost_id($post_id);
-        }
-
-        $this->commentManager->update($comment);
-
-        Session::flash('success', 'Commentaire Modifier.');
-        header('location: '.$this->url('gestionPosts'));
+        //header('location: '.$this->url('gestionPosts'));
+        $this->request->redirect($this->url('gestionPosts'));
     }
 
     public function show($id)

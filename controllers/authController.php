@@ -31,12 +31,14 @@ class AuthController extends Controller
         if(Session::has('login'))
         {
             Session::destroy();
-            header('location: '.$this->url('home'));
+            //header('location: '.$this->url('home'));
+            $this->request->redirect($this->url('home'));
             return;
         }
         else
         {
-            header('location: '.$this->url('home'));
+            //header('location: '.$this->url('home'));
+            $this->request->redirect($this->url('home'));
         }
     }
 
@@ -46,8 +48,8 @@ class AuthController extends Controller
     public function connexion()
     {
         // récupération des champ du formulaire de connexion
-        $login = $_POST['login'];
-        $password = $_POST['password'];
+        $login = $this->request->postLogin();
+        $password = $this->request->postPassword();
 
         // création d'un utilisateur en fonction du login
         $user = $this->userManager->getUserByLogin($login);
@@ -56,7 +58,8 @@ class AuthController extends Controller
         if($user == false)
         {
             Session::flash('danger', 'Votre login n\'est pas bon !');
-            header('location: '.$this->url('login'));
+            //header('location: '.$this->url('login'));
+            $this->request->redirect($this->url('login'));
         }
         
         // vérification que le mot de passe corespond bien a celui enregistrer dans la base
@@ -70,13 +73,14 @@ class AuthController extends Controller
             Session::put('user_type', $user->user_type());
             Session::flash('success', 'Vous êtes bien connecté');
 
-            header('location: '.$this->url('home'));
-            return;
+            //header('location: '.$this->url('home'));
+            $this->request->redirect($this->url('home'));
         }
         else
         {
             Session::flash('danger', 'Votre mot de passe n\'est pas correct');
-            header('location: '.$this->url('login'));
+            //header('location: '.$this->url('login'));
+            $this->request->redirect($this->url('login'));
         }
 
     }

@@ -24,8 +24,11 @@
 
 
     <h1>{{ post.title }}</h1>
+    <p style="font-size: 1em;">Auteur : {{ user.firstname }} {{ user.lastname }} / Date : {{ post.date_update }}</p>
 
-
+    <div class="mt-4">
+        <p>{{post.chapo}}</p>
+    </div>
     <div class="mt-5">
 
         <p>{{ post.content }}</p>

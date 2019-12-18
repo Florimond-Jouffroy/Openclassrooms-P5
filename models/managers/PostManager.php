@@ -12,7 +12,7 @@ class PostManager extends BddManager
     public function getPostsWithAuteur()
     {
         $req = $this->dbase->prepare('SELECT p.id, p.title, p.chapo, p.content, p.date_creation, p.date_update, p.user_id, u.firstname, u.lastname, u.email 
-            FROM post p INNER JOIN user u ON p.user_id = u.id');
+            FROM post p INNER JOIN user u ON p.user_id = u.id ORDER BY p.date_creation');
         $req->execute();
         
         $posts = [];
@@ -42,6 +42,7 @@ class PostManager extends BddManager
         return $posts;
     }
 
+    
     public function getLastPosts()
     {
         $req = $this->dbase->prepare('SELECT * FROM post ORDER BY date_creation LIMIT 3');

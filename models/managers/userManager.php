@@ -66,4 +66,12 @@ class UserManager extends BddManager
 
     }
 
+    public function getAdmins()
+    {
+        $req = $this->dbase->prepare('SELECT * FROM user WHERE user_type = 1');
+        $req->execute();
+        $req->setFetchMode(PDO::FETCH_CLASS, 'Entities\User');
+        return $req->fetchAll();
+    }
+
 }

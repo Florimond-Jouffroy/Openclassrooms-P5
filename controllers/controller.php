@@ -2,15 +2,16 @@
 
 namespace Controllers;
 
-use App\Session;
+use App\{Session, Request};
 /**
  * Classe abstraite Controller
  * Fournit des services commun pour les autres classes controllers dérivées
  */
-Abstract class Controller
+abstract class Controller
 {
 
     protected $twig;
+    protected $request;
 
     /**
      * Constructeur
@@ -24,7 +25,8 @@ Abstract class Controller
             'auto_reload' => true,
 
         ]);
-        
+
+        $this->request = new Request();
         /**
          * fonction twig pour réécrit l'url
          */

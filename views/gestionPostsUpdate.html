@@ -9,7 +9,7 @@
 {% block content %}
 
 	<a href="{{ url('gestionPostsShow', [post.id]) }}" class="btn btn-dark mb-4">Retour</a>
-	<form action="{{ url('gestionPosts/update', [post.id]) }}" method="POST">
+	<form action="{{ url('gestionPosts/update', [post.id]) }}" method="POST" class="bg-light p-4 rounded">
 
 		<div class="form-group">
 			<label for="title">Titre</label>
@@ -22,6 +22,18 @@
 		<div class="form-group">
 			<label for="content">Contenu</label>
 			<textarea name="content" id="content" cols="30" rows="15" class="form-control">{{ post.content }}</textarea>
+		</div>
+		<div class="form-group">
+			<label for="auteur">Auteur</label>
+			<select class="form-control" id="auteur" name="auteur">
+				{% for auteur in auteurs %}
+					{% if post.user_id == auteur.id %}
+						<option value="{{auteur.id}}" selected>{{ auteur.firstname }} {{ auteur.lastname }}</option>
+					{% else %}
+						<option value="{{auteur.id}}">{{ auteur.firstname }} {{ auteur.lastname }}</option>
+					{% endif %}
+				{% endfor %}
+			</select>
 		</div>
 
 		<button type="submit" class="btn btn-primary">Enregistrer</button>

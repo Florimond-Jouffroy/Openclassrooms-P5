@@ -121,7 +121,9 @@ article{
 .form-contact{
   width: 100%;
 }
-
+.border-light{
+  border-top: 1px solid rgba(255, 255, 255, 0.38) !important;
+}
 
 /* Md */
 @media (min-width: 768px) { 

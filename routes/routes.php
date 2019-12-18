@@ -3,7 +3,7 @@
 //Général
 $router->get('', ['controller'=>'HomeController', 'action'=>'home']);
 $router->get('home', ['controller'=>'HomeController', 'action'=>'home']);
-$router->get('blog', ['controller'=>'BlogController', 'action'=>'home']);
+$router->get('blog', ['controller'=>'PostController', 'action'=>'all']);
 //Post
 $router->get('post/:postId',['controller'=>'PostController','action'=>'show'])->withParam('postId', '[0-9]+');
 //Post + comment
@@ -20,6 +20,9 @@ $router->get('deconexion', ['controller'=>'AuthController', 'action'=>'deconnexi
 
 //message
 $router->post('message', ['controller'=>'HomeController', 'action'=>'message']);
+
+
+
 
 //-----------------------------------------------------------------------------------
 //Admin access

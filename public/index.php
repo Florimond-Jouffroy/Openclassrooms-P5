@@ -3,7 +3,8 @@
 
 require '../vendor/autoload.php';
 
-use App\{Router, Session};
+
+use App\{Router, Session, Request};
 
 Session::start();
 
@@ -15,5 +16,6 @@ $action = $_GET['action'] ?? '';
 
 $router = new Router($action);
 require_once '../routes/routes.php';
+
 
 $router->run();

@@ -24,35 +24,38 @@ class UserController extends Controller implements iCRUD
 
     public function store() // Traitement du formulaire et engirestement bdd
     {
-        $firstname = $_POST['firstname'];
-        $lastname = $_POST['lastname'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $passwordv = $_POST['passwordv'];
+        $firstname = $this->request->postFirstname();
+        $lastname = $this->request->postLastname();
+        $email = $this->request->postEmail();
+        $password = $this->request->postPassword();
+        $passwordv = $this->request->postPasswordv();
 
         // vérification que l email est un email et vérification firstname lastname caractere alphanumérique
 
         if($firstname == ''|| $lastname == '' || $email == '' || $password == '')
         {
             Session::flash('danger', 'Vous n\'avez pas bien remplie le formulaire !');
-            header('location: '.$this->url('inscription'));
+            //header('location: '.$this->url('inscription'));
+            $this->request->redirect($this->url('inscription'));
             return;
         }
         elseif($this->userManager->getUserByLogin($email) != false)
         {
             Session::flash('danger', 'Cette email est déjà utiliser !');
-            header('location: '.$this->url('inscription'));
+            //header('location: '.$this->url('inscription'));
+            $this->request->redirect($this->url('inscription'));
             return;
         }
         elseif($password != $passwordv)
         {
             Session::flash('danger', 'Password à vérifier !');
-            header('location: '.$this->url('inscription'));
+            //header('location: '.$this->url('inscription'));
+            $this->request->redirect($this->url('inscription'));
             return;
         }
         else
         {
-            $user = new User($_POST);
+            $user = new User($this->request->all('POST'));
             $user->hashPassword();
             $this->userManager->create($user);
             
@@ -62,7 +65,8 @@ class UserController extends Controller implements iCRUD
             Session::put('lastname', $user->lastname());
             Session::put('userId', $user->id());
             Session::flash('success', 'Vous êtes bien connecté');
-            header('location: '.$this->url('home'));
+            //header('location: '.$this->url('home'));
+            $this->request->redirect($this->url('home'));
         }
     }
 
@@ -88,15 +92,16 @@ class UserController extends Controller implements iCRUD
         $this->userManager->update($user);
 
         Session::flash('success', 'Utilisateur Modifier.');
-        header('location: '.$this->url('gestionUsers'));
+        //header('location: '.$this->url('gestionUsers'));
+        $this->request->redirect($this->url('gestionUsers'));
     }
 
     public function update($id)
     {
         // On récupére les valeur du formulaire
-        $firstname = $_POST['firstname'];
-        $lastname = $_POST['lastname'];
-        $email = $_POST['email'];
+        $firstname =  $this->request->postFirstname();
+        $lastname =  $this->request->postLastname();
+        $email =  $this->request->postEmail();
         
         // On récupére l'utilisateur enregistrer en base lié a l'id
         $user = $this->userManager->getUserById($id);
@@ -104,14 +109,16 @@ class UserController extends Controller implements iCRUD
         if($firstname == ''|| $lastname == '' || $email == '')
         {
             Session::flash('danger', 'Vous n\'avez pas bien remplie le formulaire !');
-            header('location: '.$this->url('gestionUsers/update',$user->id()));
+            //header('location: '.$this->url('gestionUsers/update',$user->id()));
+            $this->request->redirect($this->url('gestionUsers/update',$user->id()));
             return;
         }
         // On vérifie que si l'email a changer que la nouvelle est bien libre
         elseif($email != $user->email() && $this->userManager->getUserByLogin($email) != false) 
         {
             Session::flash('danger', 'Email déjà utiliser par un utilisateur!');
-            header('location: '.$this->url('gestionUsers/update',$user->id()));
+            //header('location: '.$this->url('gestionUsers/update',$user->id()));
+            $this->request->redirect($this->url('gestionUsers/update',$user->id()));
             return;
         }
         else
@@ -124,7 +131,8 @@ class UserController extends Controller implements iCRUD
             $this->userManager->update($user);
 
             Session::flash('success', 'Utilisateur Modifier.');
-            header('location: '.$this->url('gestionUsersShow', [$user->id()]));
+            //header('location: '.$this->url('gestionUsersShow', [$user->id()]));
+            $this->request->redirect($this->url('gestionUsersShow', [$user->id()]));
         }
 
     }
@@ -133,13 +141,15 @@ class UserController extends Controller implements iCRUD
     {
         $this->userManager->delete($id);
         Session::flash('success', 'Utilisateur Supprimer.');
-        header('location: '.$this->url('gestionUsers'));
+        //header('location: '.$this->url('gestionUsers'));
+        $this->request->redirect($this->url('gestionUsers'));
     }
 
     public function show($id)
     {
         $user = $this->userManager->getUserById($id);
         return $this->render('gestionUsersShow.html', ['user'=> $user]);
+        
     }
 
     public function all()

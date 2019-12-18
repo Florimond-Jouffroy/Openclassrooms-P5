@@ -19,13 +19,13 @@
 {% block mainCss %}h-100{% endblock %}
 {% block content %}
 	<div class="h-100">
-		<div class="my-4 text-light">
-			<h2>Inscription</h2>
-		</div>
+		
 
-		<div class="row">
+		<div class="row d-flex justify-content-center">
 			<form action="{{ url('inscription') }}" method="POST" class="col-lg-8 text-light">
-
+					<div class="my-4 text-light">
+						<h2>Inscription</h2>
+					</div>
 				<div class="form-row form-group d-flex flex-column flex-md-row">
 					<div class="col">
 						<label for="firstname">Prénom</label>
