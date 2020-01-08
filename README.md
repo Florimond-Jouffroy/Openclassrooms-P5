@@ -10,8 +10,9 @@ Installation du projet
 -	Via le fichier .sql a la racine du projet importer les tables et les données dans votre bdd. 
 -	Créer à la racine du projet un fichier. env et copier y les lignes suivantes en remplacent certaines données.
 
-ENV_URL = 'http://localhost/Openclassrooms-P5/public/'
-DATABASE_HOST="localhost"
-DATABASE_NAME="Nom de votre base de données"
-DATABASE_USER="Nom d’utilisateur de votre bdd"
-DATABASE_PASSWORD="Votre mot de passe s’il y en a un "
+ENV_URL = 'http://localhost/Openclassrooms-P5/public/'</br>
+DATABASE_HOST="localhost"</br>
+DATABASE_NAME=""</br>
+DATABASE_USER=""</br>
+DATABASE_PASSWORD=""</br>
+
