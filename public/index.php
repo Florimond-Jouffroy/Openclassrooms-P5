@@ -8,10 +8,11 @@ use App\{Router, Session, Request};
 
 Session::start();
 
+$request = new Request();
 $dotenv = \Dotenv\Dotenv::create('../');
 $dotenv->load();
 
-$action = $_GET['action'] ?? '';
+$action = $request->getAction() ?? '';
 
 
 $router = new Router($action);

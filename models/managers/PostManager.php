@@ -12,7 +12,7 @@ class PostManager extends BddManager
     public function getPostsWithAuteur()
     {
         $req = $this->dbase->prepare('SELECT p.id, p.title, p.chapo, p.content, p.date_creation, p.date_update, p.user_id, u.firstname, u.lastname, u.email 
-            FROM post p INNER JOIN user u ON p.user_id = u.id ORDER BY p.date_creation');
+            FROM post p INNER JOIN user u ON p.user_id = u.id ORDER BY p.date_creation DESC');
         $req->execute();
         
         $posts = [];
@@ -45,7 +45,7 @@ class PostManager extends BddManager
     
     public function getLastPosts()
     {
-        $req = $this->dbase->prepare('SELECT * FROM post ORDER BY date_creation LIMIT 3');
+        $req = $this->dbase->prepare('SELECT * FROM post ORDER BY date_creation DESC LIMIT 3');
         $req->execute();
  
         $req->setFetchMode(PDO::FETCH_CLASS, 'Entities\Post');
@@ -54,9 +54,7 @@ class PostManager extends BddManager
 
     public function getPosts()
     {
-        $req = $this->dbase->prepare('SELECT * 
-                            FROM post 
-                            ');
+        $req = $this->dbase->prepare('SELECT * FROM post ORDER BY date_creation DESC');
         $req->execute();
  
         $req->setFetchMode(PDO::FETCH_CLASS, 'Entities\Post');

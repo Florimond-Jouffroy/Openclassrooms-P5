@@ -38,20 +38,20 @@
     <div class="comment py-4">
         {% if comments %}
         {% for comment in comments %}
+            {% if comment.disabled == 0 %}
+                <article class="p-2 mb-2 text-light rounded">
+                    <div class="row">
 
-        <article class="p-2 mb-2 text-light rounded">
-            <div class="row">
-
-                <p class="col col-lg-8 m-0">{{ comment.content|e }}</p>
+                        <p class="col col-lg-8 m-0">{{ comment.content|e }}</p>
 
 
-                <p class="col col-lg-2 text-muted m-0">le {{ comment.date_creation }}</p>
-                <p class="col col-lg-2 text-muted m-0"> Par {{ comment.user().firstname() }}</p>
+                        <p class="col col-lg-2 text-muted m-0">le {{ comment.date_creation }}</p>
+                        <p class="col col-lg-2 text-muted m-0"> Par {{ comment.user().firstname() }}</p>
 
-            </div>
+                    </div>
 
-        </article>
-
+                </article>
+            {% endif %}
 
         {% endfor %}
 
@@ -70,7 +70,7 @@
                 <label for="comment">Votre commentaire</label>
                 <textarea name="comment" id="comment" rows="3" class="form-control "></textarea>
             </div>
-            <input type="text" name="postId" value="{{post.id}}" hidden>
+            <input type="text" name="postid" value="{{post.id}}" hidden>
 
 
             <button type="submit" class="btn btn-orange">Poster</button>

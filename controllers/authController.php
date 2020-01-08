@@ -58,7 +58,6 @@ class AuthController extends Controller
         if($user == false)
         {
             Session::flash('danger', 'Votre login n\'est pas bon !');
-            //header('location: '.$this->url('login'));
             $this->request->redirect($this->url('login'));
         }
         
@@ -73,13 +72,12 @@ class AuthController extends Controller
             Session::put('user_type', $user->user_type());
             Session::flash('success', 'Vous êtes bien connecté');
 
-            //header('location: '.$this->url('home'));
+            
             $this->request->redirect($this->url('home'));
         }
         else
         {
             Session::flash('danger', 'Votre mot de passe n\'est pas correct');
-            //header('location: '.$this->url('login'));
             $this->request->redirect($this->url('login'));
         }
 

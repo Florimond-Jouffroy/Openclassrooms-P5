@@ -35,21 +35,18 @@ class UserController extends Controller implements iCRUD
         if($firstname == ''|| $lastname == '' || $email == '' || $password == '')
         {
             Session::flash('danger', 'Vous n\'avez pas bien remplie le formulaire !');
-            //header('location: '.$this->url('inscription'));
             $this->request->redirect($this->url('inscription'));
             return;
         }
         elseif($this->userManager->getUserByLogin($email) != false)
         {
             Session::flash('danger', 'Cette email est déjà utiliser !');
-            //header('location: '.$this->url('inscription'));
             $this->request->redirect($this->url('inscription'));
             return;
         }
         elseif($password != $passwordv)
         {
             Session::flash('danger', 'Password à vérifier !');
-            //header('location: '.$this->url('inscription'));
             $this->request->redirect($this->url('inscription'));
             return;
         }
@@ -65,7 +62,6 @@ class UserController extends Controller implements iCRUD
             Session::put('lastname', $user->lastname());
             Session::put('userId', $user->id());
             Session::flash('success', 'Vous êtes bien connecté');
-            //header('location: '.$this->url('home'));
             $this->request->redirect($this->url('home'));
         }
     }
@@ -92,7 +88,6 @@ class UserController extends Controller implements iCRUD
         $this->userManager->update($user);
 
         Session::flash('success', 'Utilisateur Modifier.');
-        //header('location: '.$this->url('gestionUsers'));
         $this->request->redirect($this->url('gestionUsers'));
     }
 
@@ -117,7 +112,6 @@ class UserController extends Controller implements iCRUD
         elseif($email != $user->email() && $this->userManager->getUserByLogin($email) != false) 
         {
             Session::flash('danger', 'Email déjà utiliser par un utilisateur!');
-            //header('location: '.$this->url('gestionUsers/update',$user->id()));
             $this->request->redirect($this->url('gestionUsers/update',$user->id()));
             return;
         }
@@ -131,7 +125,6 @@ class UserController extends Controller implements iCRUD
             $this->userManager->update($user);
 
             Session::flash('success', 'Utilisateur Modifier.');
-            //header('location: '.$this->url('gestionUsersShow', [$user->id()]));
             $this->request->redirect($this->url('gestionUsersShow', [$user->id()]));
         }
 
@@ -141,7 +134,6 @@ class UserController extends Controller implements iCRUD
     {
         $this->userManager->delete($id);
         Session::flash('success', 'Utilisateur Supprimer.');
-        //header('location: '.$this->url('gestionUsers'));
         $this->request->redirect($this->url('gestionUsers'));
     }
 

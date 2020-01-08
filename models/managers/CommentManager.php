@@ -63,7 +63,7 @@ class CommentManager extends BddManager
   
     public function getCommentsByPost($post_id)
     {
-        $req = $this->dbase->prepare('SELECT * FROM comment c INNER JOIN user u ON c.user_id = u.id WHERE c.post_id = ?');
+        $req = $this->dbase->prepare('SELECT c.id, c.content, c.disabled, c.date_creation, c.post_id, c.user_id, u.firstname, u.lastname, u.email, u.user_type FROM comment c INNER JOIN user u ON c.user_id = u.id WHERE c.post_id = ?');
         $req->execute([$post_id]);
 
         $comments = [];

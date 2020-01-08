@@ -37,7 +37,6 @@ class PostController extends Controller implements iCRUD
         if($title == '' || $chapo == '' || $content == '')
         {
             Session::flash('danger', 'Vous n\'avez pas bien remplie le formulaire !');
-            //header('location: '.$this->url('gestionPosts'));
             $this->request->redirect($this->url('gestionPosts'));
             return;
         }
@@ -49,7 +48,6 @@ class PostController extends Controller implements iCRUD
             $this->postManager->create($post);
 
             Session::flash('success', 'Article ajouter.');
-            //header('location: '.$this->url('gestionPosts'));
             $this->request->redirect($this->url('gestionPosts'));
         }
     }
@@ -60,7 +58,6 @@ class PostController extends Controller implements iCRUD
         $this->postManager->delete($id); // suppression du post
 
         Session::flash('success', 'Article supprimer.');
-        //header('location: '.$this->url('gestionPosts'));
         $this->request->redirect($this->url('gestionPosts'));
     }
 
@@ -97,7 +94,6 @@ class PostController extends Controller implements iCRUD
             $this->postManager->update($post);
 
             Session::flash('success', 'Article Modifier.');
-            //header('location: '.$this->url('gestionPosts'));
             $this->request->redirect($this->url('gestionPosts'));
         }
     }

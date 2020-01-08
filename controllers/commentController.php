@@ -29,15 +29,16 @@ class CommentController extends Controller implements iCRUD
         $this->commentManager->delete($id);
 
         Session::flash('success', 'Commentaire Supprimer.');
-        //header('location: '.$this->url('gestionComments'));
         $this->request->redirect($this->url('gestionComments'));
     }
 
     public function store() // Traitement du formulaire et engirestement bdd
     {
         $commentContent = $this->request->postComment();
-        $postId = $this->request->postPostId();
-        $userId = Session::get('user_id');
+        $postId = $this->request->postPostid();
+        $userId = Session::get('userId');
+
+        
 
         if($commentContent == '' || $postId == '')
         {
@@ -48,14 +49,13 @@ class CommentController extends Controller implements iCRUD
       
         $comment = new Comment();
         $comment->setContent($commentContent);
-        $comment->setDisabled(0);
+        $comment->setDisabled(1);// 0 les commentaire sont publier // 1 les commentaire sont désactiver
         $comment->setUser_id($userId);
         $comment->setPost_id($postId);
 
         $this->commentManager->create($comment);
 
         Session::flash('success', 'Commentaire ajouter !');
-        //header('location: '.$this->url('post/'.$postId));
         $this->request->redirect($this->url('post/'.$postId));
     }
 
@@ -65,9 +65,7 @@ class CommentController extends Controller implements iCRUD
     {
 
     }
-    public function update($id){
-
-    }
+    
 
     public function disabledChange($id)
     {
@@ -86,15 +84,13 @@ class CommentController extends Controller implements iCRUD
         $this->commentManager->update($comment);
         Session::flash('success', 'Commentaire modifié');
 
-       // header('location: '.$this->url('gestionPostsShow').'/'.$comment->post_id());
-        //header('location: '.$this->url('gestionPostsShow', [$comment->post_id()]));
         $this->request->redirect($this->url('gestionPostsShow', [$comment->post_id()]));
 
     }
 
     
 
-    public function updateTest($id)
+    public function update($id)
     {
         
         $error = 0;
