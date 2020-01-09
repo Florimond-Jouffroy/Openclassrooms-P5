@@ -6,6 +6,7 @@ Créez votre premier blog en PHP
 
 Installation du projet 
 -	Importer en local le projet via mon Repository.
+- Avec composer d'installer sur votre machine, dans l'invite de cmd a la racine du projet fait un composer install
 -	Dans votre BDD local créer une nouvelle base de données. 
 -	Via le fichier .sql a la racine du projet importer les tables et les données dans votre bdd. 
 -	Créer à la racine du projet un fichier. env et copier y les lignes suivantes en remplacent certaines données.
