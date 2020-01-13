@@ -36,12 +36,11 @@ $router->get('gestionPosts/update/:postId', ['controller'=>'PostController', 'ac
 $router->post('gestionPosts/update/:postId', ['controller'=>'PostController', 'action'=>'update'])->withParam('postId', '[0-9]+')->withMiddleware('admin'); 
 $router->get('gestionPostsShow/:postId', ['controller'=>'PostController', 'action'=>'showAdmin'])->withParam('postId', '[0-9]+')->withMiddleware('admin'); 
 
-
 // gestion des commentaires
 $router->get('gestionComments', ['controller'=>'CommentController', 'action'=>'all'])->withMiddleware('admin');
-
 $router->get('gestionComments/disabled/:commentId', ['controller'=>'CommentController', 'action'=>'disabledChange'])->withParam('commentId', '[0-9]+')->withMiddleware('admin'); 
 $router->get('gestionComments/delete/:commentId', ['controller'=>'CommentController', 'action'=>'delete'])->WithParam('CommentId', '[0-9]+')->withMiddleware('admin');
+
 // gestion des utilisateurs
 $router->get('gestionUsers', ['controller'=>'UserController', 'action'=>'all'])->withMiddleware('admin');
 $router->get('gestionUsers/update/:userId', ['controller'=>'UserController', 'action'=>'modify'])->withParam('userId', '[0-9]+')->withMiddleware('admin');

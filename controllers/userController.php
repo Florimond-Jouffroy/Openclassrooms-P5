@@ -40,7 +40,7 @@ class UserController extends Controller implements iCRUD
         }
         elseif($this->userManager->getUserByLogin($email) != false)
         {
-            Session::flash('danger', 'Cette email est déjà utiliser !');
+            Session::flash('danger', 'Cet email est déjà utiliser !');
             $this->request->redirect($this->url('inscription'));
             return;
         }
@@ -87,7 +87,7 @@ class UserController extends Controller implements iCRUD
 
         $this->userManager->update($user);
 
-        Session::flash('success', 'Utilisateur Modifier.');
+        Session::flash('success', 'Utilisateur Modifié.');
         $this->request->redirect($this->url('gestionUsers'));
     }
 
@@ -124,7 +124,7 @@ class UserController extends Controller implements iCRUD
 
             $this->userManager->update($user);
 
-            Session::flash('success', 'Utilisateur Modifier.');
+            Session::flash('success', 'Utilisateur Modifié.');
             $this->request->redirect($this->url('gestionUsersShow', [$user->id()]));
         }
 
@@ -133,7 +133,7 @@ class UserController extends Controller implements iCRUD
     public function delete($id)
     {
         $this->userManager->delete($id);
-        Session::flash('success', 'Utilisateur Supprimer.');
+        Session::flash('success', 'Utilisateur Supprimé.');
         $this->request->redirect($this->url('gestionUsers'));
     }
 

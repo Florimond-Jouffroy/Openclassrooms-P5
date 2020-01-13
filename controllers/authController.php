@@ -31,13 +31,11 @@ class AuthController extends Controller
         if(Session::has('login'))
         {
             Session::destroy();
-            //header('location: '.$this->url('home'));
             $this->request->redirect($this->url('home'));
             return;
         }
         else
         {
-            //header('location: '.$this->url('home'));
             $this->request->redirect($this->url('home'));
         }
     }

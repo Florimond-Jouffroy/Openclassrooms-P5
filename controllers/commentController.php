@@ -28,7 +28,7 @@ class CommentController extends Controller implements iCRUD
     {
         $this->commentManager->delete($id);
 
-        Session::flash('success', 'Commentaire Supprimer.');
+        Session::flash('success', 'Commentaire Supprimé.');
         $this->request->redirect($this->url('gestionComments'));
     }
 
@@ -55,7 +55,7 @@ class CommentController extends Controller implements iCRUD
 
         $this->commentManager->create($comment);
 
-        Session::flash('success', 'Commentaire ajouter !');
+        Session::flash('success', 'Commentaire ajouté !');
         $this->request->redirect($this->url('post/'.$postId));
     }
 
@@ -111,7 +111,7 @@ class CommentController extends Controller implements iCRUD
             
             $this->commentManager->update($comment);
 
-            Session::flash('success', 'Commentaire Modifier.');
+            Session::flash('success', 'Commentaire Modifié.');
 
         } else {
             Session::flash('danger', $error_msg);

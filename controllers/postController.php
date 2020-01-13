@@ -93,7 +93,7 @@ class PostController extends Controller implements iCRUD
             
             $this->postManager->update($post);
 
-            Session::flash('success', 'Article Modifier.');
+            Session::flash('success', 'Article Modifié.');
             $this->request->redirect($this->url('gestionPosts'));
         }
     }
